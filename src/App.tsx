@@ -1,20 +1,13 @@
-import { Checkbox } from './components/Checkbox';
+import { useContext } from 'react';
+import { ITask } from './@types/Task';
 import { Header } from './components/Header';
 import { Input } from './components/Input';
-import { Task, TaskProps } from './components/Task';
+import { Task } from './components/Task';
+import { useTasks } from './hooks/useTask';
 import './styles/global.css';
 
 export function App() {
-    const tasks: Array<TaskProps> = [
-        {
-            text: 'Teste',
-            done: false,
-        },
-        {
-            text: 'Teste 2',
-            done: true,
-        },
-    ];
+    const { tasks } = useTasks();
 
     const taskCount = tasks.length;
     const doneCount = tasks.filter((t) => t.done === true).length;
@@ -42,11 +35,7 @@ export function App() {
                         </div>
                     </header>
                     {tasks.map((task) => (
-                        <Task
-                            text={task.text}
-                            done={task.done}
-                            key={task.text}
-                        />
+                        <Task task={task} key={task.id} />
                     ))}
                 </section>
             </main>
